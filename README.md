@@ -188,6 +188,8 @@ For Orbstack users:
 
 ### 4. Install docker on the docker hosts
 
+***Role***: `collections/ansible_collections/kong/ansible_kong_examples/roles/docker`
+
 Install Docker on the designated Docker hosts by running the following Ansible playbook:
 
 ```bash
@@ -196,6 +198,8 @@ $ ansible-playbook install_docker.yml
 
 ### 5. Install and Run Kong on the docker hosts
 
+***Role***: `collections/ansible_collections/kong/ansible_kong_examples/roles/kong_docker`
+
 Deploy and start Kong within Docker containers on the Docker hosts with this command:
 
 ```bash
@@ -203,6 +207,8 @@ $ ansible-playbook install_kong.yml --tags "kong_docker"
 ```
 
 ### 6. Install and Run Kong directly on the ubuntu hosts
+
+***Role***: `collections/ansible_collections/kong/ansible_kong_examples/roles/kong`
 
 Install and configure Kong directly on Ubuntu hosts using the following playbook:
 
