@@ -159,13 +159,12 @@ This playbook ensures that Kong is installed appropriately based on the host typ
 
 Duplicate the `.env_example` file and rename it to `.env.` Then, fill in the required values for the environment variables.
 
-- **`ANS_KONG_CLUSTER_CONTROL_PLANE`**: The fully qualified domain name (FQDN) and port of the Kong Control Plane. Format: `<control_fqdn:443>`. This variable specifies where the Kong Control Plane is accessible.
-
-- **`ANS_KONG_CLUSTER_SERVER_NAME`**: The fully qualified domain name (FQDN) of the Kong Control Plane server. Format: `<control_fqdn>`. This variable is used to identify the server name for the Kong Control Plane.
-
-- **`ANS_KONG_CLUSTER_TELEMETRY_ENDPOINT`**: The fully qualified domain name (FQDN) and port of the Kong Telemetry Endpoint. Format: `<control_telemetry_fqdn:443>`. This variable specifies where the Kong Telemetry service can be reached.
-
-- **`ANS_KONG_CLUSTER_TELEMETRY_SERVER_NAME`**: The fully qualified domain name (FQDN) of the Kong Telemetry server. Format: `<control_telemetry_fqdn>`. This variable is used to identify the server name for the Kong Telemetry service.
+| Variable Name                           | Description                                                                                      |
+|-----------------------------------------|--------------------------------------------------------------------------------------------------|
+| `ANS_KONG_CLUSTER_CONTROL_PLANE`        | The fully qualified domain name (FQDN) and port of the Kong Control Plane. Format: `<control_fqdn:443>`. This variable specifies where the Kong Control Plane is accessible. |
+| `ANS_KONG_CLUSTER_SERVER_NAME`          | The fully qualified domain name (FQDN) of the Kong Control Plane server. Format: `<control_fqdn>`. This variable is used to identify the server name for the Kong Control Plane. |
+| `ANS_KONG_CLUSTER_TELEMETRY_ENDPOINT`   | The fully qualified domain name (FQDN) and port of the Kong Telemetry Endpoint. Format: `<control_telemetry_fqdn:443>`. This variable specifies where the Kong Telemetry service can be reached. |
+| `ANS_KONG_CLUSTER_TELEMETRY_SERVER_NAME`| The fully qualified domain name (FQDN) of the Kong Telemetry server. Format: `<control_telemetry_fqdn>`. This variable is used to identify the server name for the Kong Telemetry service. |
 
 ### 2. Add Kong Cluster Certificates
 
