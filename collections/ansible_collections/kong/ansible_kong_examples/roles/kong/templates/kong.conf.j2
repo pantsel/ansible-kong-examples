@@ -1,0 +1,14 @@
+role = data_plane
+database = off
+vitals = off
+cluster_mtls = pki
+cluster_control_plane = {{ kong_cluster_control_plane }}
+cluster_server_name = {{ kong_cluster_server_name }}
+cluster_telemetry_endpoint = {{ kong_cluster_telemetry_endpoint }}
+cluster_telemetry_server_name = {{ kong_cluster_telemetry_server_name }}
+cluster_cert = /etc/ssl/private/kong/cluster.crt
+cluster_cert_key = /etc/ssl/private/kong/cluster.key
+lua_ssl_trusted_certificate = system
+konnect_mode = on
+status_listen = {{ kong_status_listen }}
+proxy_listen = {{ kong_proxy_listen }}

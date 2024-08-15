@@ -7,10 +7,12 @@ force_reload: false
 kong_version: "3.7.1.2"
 kong_gateway_package_url: "https://packages.konghq.com/public/gateway-37/deb/ubuntu/pool/_ANSIBLE_LSB_CODENAME_/main/k/ko/kong-enterprise-edition_{{ kong_version }}/kong-enterprise-edition_{{ kong_version }}__ARCH_.deb"
 
-kong_cluster_control_plane: "5860b60eb8.eu.cp0.konghq.com:443"
-kong_cluster_server_name: "5860b60eb8.eu.cp0.konghq.com"
-kong_cluster_telemetry_endpoint: "5860b60eb8.eu.tp0.konghq.com:443"
-kong_cluster_telemetry_server_name: "5860b60eb8.eu.tp0.konghq.com"
+# The following variables are taken from the environment variables set in the shell.
+# Make sure to set these environment variables before running the playbook.
+kong_cluster_control_plane: "{{ lookup('env', 'ANS_KONG_CLUSTER_CONTROL_PLANE') }}"
+kong_cluster_server_name: "{{ lookup('env', 'ANS_KONG_CLUSTER_SERVER_NAME') }}"
+kong_cluster_telemetry_endpoint: "{{ lookup('env', 'ANS_KONG_CLUSTER_TELEMETRY_ENDPOINT') }}"
+kong_cluster_telemetry_server_name: "{{ lookup('env', 'ANS_KONG_CLUSTER_TELEMETRY_SERVER_NAME') }}"
 
 # The paths to the cluster certificate and key on the local machine (the machine running the playbook).
 kong_cluster_crt_path_local: "{{ playbook_dir }}/.tls/cluster.crt"

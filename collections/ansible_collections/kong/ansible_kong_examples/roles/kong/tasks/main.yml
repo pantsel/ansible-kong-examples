@@ -1,0 +1,92 @@
+---
+- name: Update and upgrade all packages to the latest version
+  ansible.builtin.apt:
+    update_cache: true
+    upgrade: dist
+    cache_valid_time: 3600
+
+- name: Determine Ubuntu release codename
+  ansible.builtin.command: lsb_release -sc
+  register: ubuntu_release
+  changed_when: false
+
+- name: Determine architecture
+  ansible.builtin.command: dpkg --print-architecture
+  register: dpkg_architecture
+  changed_when: false
+
+- name: Print architecture variables
+  ansible.builtin.debug:
+    msg: "Architecture: {{ dpkg_architecture.stdout }}, Codename: {{ ansible_lsb.codename }}"
+
+- name: Print Kong version
+  ansible.builtin.debug:
+    msg: "Kong version: {{ kong_version }}"
+
+- name: Set the Kong package URL
+  ansible.builtin.set_fact:
+    kong_package_url: "{{ kong_gateway_package_url | replace('_ANSIBLE_LSB_CODENAME_', ubuntu_release.stdout) | replace('_ARCH_', dpkg_architecture.stdout) }}"
+
+- name: Download Kong package
+  ansible.builtin.get_url:
+    url: "{{ kong_package_url }}"
+    dest: "/tmp/kong-enterprise-edition-{{ kong_version }}.deb"
+
+- name: Install Kong package
+  ansible.builtin.apt:
+    deb: "/tmp/kong-enterprise-edition-{{ kong_version }}.deb"
+    state: present
+
+- name: Create directory for the cluster certificate and key
+  ansible.builtin.file:
+    path:  /etc/ssl/private/kong
+    state: directory
+    group: kong
+    owner: kong
+    mode: '0700'
+
+- name: Copy cluster.crt
+  ansible.builtin.copy:
+    src: "{{ kong_cluster_crt_path_local }}"
+    dest: /etc/ssl/private/kong/cluster.crt
+    group: kong
+    owner: kong
+    mode: 0600
+
+- name: Copy cluster.key
+  ansible.builtin.copy:
+    src: "{{ kong_cluster_key_path_local }}"
+    dest: /etc/ssl/private/kong/cluster.key
+    group: kong
+    owner: kong
+    mode: 0600
+
+- name: Copy kong.conf
+  ansible.builtin.template:
+    src: "{{ role_path }}/templates/kong.conf.j2"
+    dest: /etc/kong/kong.conf
+    owner: kong
+    group: kong
+    mode: 0600
+  register: template_result
+
+- name: Reload Kong service if kong.conf is changed or if force reload is requested
+  ansible.builtin.systemd:
+    name: kong-enterprise-edition
+    state: reloaded
+  when: template_result.changed or force_reload
+
+- name: Ensure Kong service is enabled and started
+  ansible.builtin.systemd:
+    name: kong-enterprise-edition
+    state: started
+    enabled: yes
+
+- name: Wait for Kong service to become available
+  ansible.builtin.wait_for:
+    host: localhost
+    port: "{{ kong_proxy_port_http_ssl }}"
+    delay: 5
+    timeout: 60
+    state: started
+    msg: "Kong is not running"

@@ -1,0 +1,68 @@
+---
+- name: Check if docker is installed
+  ansible.builtin.command: docker --version
+  register: docker_version
+  failed_when: docker_version.rc != 0
+  changed_when: false
+  ignore_errors: yes
+
+- name: Print an error message if docker is not installed
+  ansible.builtin.fail:
+    msg: "Docker is not installed. Please install Docker before running this playbook."
+  when: docker_version.rc != 0
+  changed_when: false
+
+- name: Create a directory for the cluster certificate and key
+  ansible.builtin.file:
+    path:  /etc/ssl/private/kong
+    state: directory
+    group: docker
+    owner: "{{ ansible_user }}"
+    mode: '0700'
+
+- name: Copy cluster.crt
+  ansible.builtin.copy:
+    src: "{{ kong_cluster_crt_path_local }}"
+    dest: /etc/ssl/private/kong/cluster.crt
+    group: docker
+    owner: "{{ ansible_user }}"
+    mode: 0600
+
+- name: Copy cluster.key
+  ansible.builtin.copy:
+    src: "{{ kong_cluster_key_path_local }}"
+    dest: /etc/ssl/private/kong/cluster.key
+    group: docker
+    owner: "{{ ansible_user }}"
+    mode: 0600
+
+- name: Start Kong DP
+  community.docker.docker_container:
+    name: kong-dp
+    image: kong/kong-gateway:3.7.0.0
+    state: started
+    published_ports:
+      - "8000:8000"
+      - "8443:8443"
+      - "8100:8100"
+    healthcheck:
+      test: ["CMD", "kong", "health"]
+      interval: 30s
+      timeout: 30s
+      retries: 3
+    volumes:
+      - /etc/ssl/private/kong/cluster.crt:/usr/local/kong/cluster.crt:ro
+      - /etc/ssl/private/kong/cluster.key:/usr/local/kong/cluster.key:ro
+    env:
+      KONG_ROLE: "data_plane"
+      KONG_DATABASE: "off"
+      KONG_VITALS: "off"
+      KONG_CLUSTER_MTLS: "pki"
+      KONG_CLUSTER_CONTROL_PLANE: "{{ kong_cluster_control_plane }}"
+      KONG_CLUSTER_SERVER_NAME: "{{ kong_cluster_server_name }}"
+      KONG_CLUSTER_TELEMETRY_ENDPOINT: "{{ kong_cluster_telemetry_endpoint }}"
+      KONG_CLUSTER_TELEMETRY_SERVER_NAME: "{{ kong_cluster_telemetry_server_name }}"
+      KONG_CLUSTER_CERT: "/usr/local/kong/cluster.crt"
+      KONG_CLUSTER_CERT_KEY: "/usr/local/kong/cluster.key"
+      KONG_LUA_SSL_TRUSTED_CERTIFICATE: "system"
+      KONG_KONNECT_MODE: "on"
