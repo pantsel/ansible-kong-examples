@@ -152,6 +152,8 @@ This playbook ensures that Kong is installed appropriately based on the host typ
 
 To get started with this repository, you'll need to spin up two Ubuntu virtual machines using OrbStack. Follow these steps to set up your environment:
 
+> You can skip this step if you are not using `OrbStack` and have your VMs set up using a different method.
+
 1. **Open OrbStack** and start the VM creation process.
 
 2. **Create Virtual Machines**:
