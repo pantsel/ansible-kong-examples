@@ -1,0 +1,18 @@
+---
+- name: Install Kong Docker
+  hosts: docker_hosts
+  become: yes
+  gather_subset: min
+  roles:
+    - role: kong.ansible_kong_examples.kong_docker
+  tags:
+    - kong_docker
+
+- name: Install Kong
+  hosts: ubuntu_hosts
+  become: yes
+  gather_subset: min
+  roles:
+    - role: kong.ansible_kong_examples.kong
+  tags:
+    - kong_host

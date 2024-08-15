@@ -1,0 +1,21 @@
+---
+ansible_user: ubuntu
+ansible_ssh_private_key_file: ~/.orbstack/ssh/id_ed25519
+
+force_reload: false
+
+kong_version: "3.7.1.2"
+kong_gateway_package_url: "https://packages.konghq.com/public/gateway-37/deb/ubuntu/pool/_ANSIBLE_LSB_CODENAME_/main/k/ko/kong-enterprise-edition_{{ kong_version }}/kong-enterprise-edition_{{ kong_version }}__ARCH_.deb"
+
+kong_cluster_control_plane: "5860b60eb8.eu.cp0.konghq.com:443"
+kong_cluster_server_name: "5860b60eb8.eu.cp0.konghq.com"
+kong_cluster_telemetry_endpoint: "5860b60eb8.eu.tp0.konghq.com:443"
+kong_cluster_telemetry_server_name: "5860b60eb8.eu.tp0.konghq.com"
+
+# The paths to the cluster certificate and key on the local machine (the machine running the playbook).
+kong_cluster_crt_path_local: "{{ playbook_dir }}/.tls/cluster.crt"
+kong_cluster_key_path_local: "{{ playbook_dir }}/.tls/cluster.key"
+
+kong_proxy_port_http_ssl: "443"
+kong_status_listen: "0.0.0.0:8100 ssl http2"
+kong_proxy_listen: "0.0.0.0:{{ kong_proxy_port_http_ssl }} ssl, 0.0.0.0:444 http2 ssl"
