@@ -12,10 +12,8 @@ This repository and its associated examples utilize [Orbstack](https://orbstack.
 - [Use Cases Covered](#use-cases-covered)
 - [Important files](#important-files)
   - [ansible.cfg](#ansiblecfg)
-- [inventory/hosts.yml](#inventoryhostsyml)
-  - [Playbooks](#playbooks)
-    - [install\_docker.yml](#install_dockeryml)
-    - [install\_kong.yml](#install_kongyml)
+  - [inventory/hosts.yml](#inventoryhostsyml)
+    - [Playbooks](#playbooks)
 - [Getting started](#getting-started)
   - [1. Spin up the ubuntu Virtual Machines](#1-spin-up-the-ubuntu-virtual-machines)
 
@@ -80,7 +78,7 @@ The ansible configuration file
 
 `private_key_file` is set to the default `Orbstack` private key used to SSH in the hosts. If nor using `Orbstack`, adjust the value accordingly.
 
-## inventory/hosts.yml
+### inventory/hosts.yml
 
 > Modify the file as needed if you are not using OrbStack to ensure compatibility with the provided example.
 
@@ -113,9 +111,9 @@ The `children` section groups these servers into:
 
 This structure allows for organized management and task targeting based on server categories. For more details on configuring Ansible inventory files, refer to the [Ansible documentation](https://docs.ansible.com/ansible/latest/user_guide/intro_inventory.html).
 
-### Playbooks
+#### Playbooks
 
-#### install_docker.yml
+***install_docker.yml***
 
 This Ansible playbook is designed to install Docker on hosts categorized under the `docker_hosts` group. The playbook performs the following actions:
 
@@ -126,7 +124,7 @@ This Ansible playbook is designed to install Docker on hosts categorized under t
 
 This setup ensures that Docker is installed on all servers within the `docker_hosts` group. For more information on Ansible roles and playbooks, see the [Ansible documentation](https://docs.ansible.com/ansible/latest/user_guide/playbooks_roles.html).
 
-#### install_kong.yml
+***install_kong.yml***
 
 This Ansible playbook installs Kong on Docker and Ubuntu hosts, organizing the tasks into separate plays for each host group. It performs the following actions:
 
