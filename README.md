@@ -36,12 +36,13 @@ This repository and its associated examples utilize [Orbstack](https://orbstack.
 │   ├── ansible_collections
 │   │   └── kong
 │   │       └── ansible_kong_examples
-│   │           ├── README.md
 │   │           └── roles
 │   │               ├── docker
+│   │               │   ├── README.md
 │   │               │   └── tasks
 │   │               │       └── main.yml
 │   │               ├── kong
+│   │               │   ├── README.md
 │   │               │   ├── tasks
 │   │               │   │   └── main.yml
 │   │               │   └── templates
