@@ -20,6 +20,10 @@ This repository and its associated examples utilize [Orbstack](https://orbstack.
   - [1. Prepare ENV Variables](#1-prepare-env-variables)
   - [2. Add Kong Cluster Certificates](#2-add-kong-cluster-certificates)
   - [3. Spin up the ubuntu Virtual Machines (Orbstack)](#3-spin-up-the-ubuntu-virtual-machines-orbstack)
+  - [4. Install docker on the docker hosts](#4-install-docker-on-the-docker-hosts)
+  - [5. Install and Run Kong on the docker hosts](#5-install-and-run-kong-on-the-docker-hosts)
+  - [6. Install and Run Kong directly on the ubuntu hosts](#6-install-and-run-kong-directly-on-the-ubuntu-hosts)
+  - [7. Verify Kong us up and running on all hosts](#7-verify-kong-us-up-and-running-on-all-hosts)
 
 <!-- /TOC -->
 
@@ -164,9 +168,9 @@ Duplicate the `.env_example` file and rename it to `.env.` Then, fill in the req
 
 ### 2. Add Kong Cluster Certificates
 
-1. **Create a Directory**: Create a folder named `.tls`.
+1. Create a folder named `.tls`.
 
-2. **Add Certificates**: Place the Kong Cluster certificate and private key into this directory with the following names:
+2. Place the Kong Cluster certificate and private key into this directory with the following names:
    - **Certificate**: `cluster.crt`
    - **Private Key**: `cluster.key`
 
@@ -176,13 +180,50 @@ Duplicate the `.env_example` file and rename it to `.env.` Then, fill in the req
 
 For Orbstack users:
 
-1. **Open Orbstack** and create VMs:
+**Open Orbstack** and create VMs:
    - **VM 1**: `ubuntu1` (Ubuntu 22.04 LTS - Jammy Jellyfish amd46)
    - **VM 2**: `ubuntu2` (Ubuntu 22.04 LTS - Jammy Jellyfish amd46)
    - **VM 3**: `docker1` (Ubuntu 22.04 LTS - Jammy Jellyfish amd46)
    - **VM 4**: `docker2` (Ubuntu 22.04 LTS - Jammy Jellyfish amd46)
 
-You now have four VMs ready for configuration.
+### 4. Install docker on the docker hosts
+
+Install Docker on the designated Docker hosts by running the following Ansible playbook:
+
+```bash
+$ ansible-playbook install_docker.yml  
+```
+
+### 5. Install and Run Kong on the docker hosts
+
+Deploy and start Kong within Docker containers on the Docker hosts with this command:
+
+```bash
+$ ansible-playbook install_kong.yml --tags "kong_docker"    
+```
+
+### 6. Install and Run Kong directly on the ubuntu hosts
+
+Install and configure Kong directly on Ubuntu hosts using the following playbook:
+
+```bash
+$ ansible-playbook install_kong.yml --tags "kong_host"    
+```
+
+### 7. Verify Kong us up and running on all hosts
+
+To ensure Kong is running correctly on all hosts, use `curl` to make requests on port 8000. Below are examples of how to issue these requests:
+
+```bash
+$ curl http://ubuntu.orb.local:8000
+
+$ curl http://ubuntu2.orb.local:8000
+
+$ curl http://docker1.orb.local:8000
+
+$ curl http://docker2.orb.local:8000
+```
+
 
 
 

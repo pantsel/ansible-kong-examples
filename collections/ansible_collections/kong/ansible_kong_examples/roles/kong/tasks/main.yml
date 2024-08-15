@@ -85,7 +85,7 @@
 - name: Wait for Kong service to become available
   ansible.builtin.wait_for:
     host: localhost
-    port: "{{ kong_proxy_port_http_ssl }}"
+    port: 8000
     delay: 5
     timeout: 60
     state: started
