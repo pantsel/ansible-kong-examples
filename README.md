@@ -1,8 +1,13 @@
-# Kong Ansible Examples Project
+# Kong Ansible Examples Project <!-- omit in toc -->
 
 This sample repository offers foundational examples demonstrating how to install and run Kong Data Planes on Ubuntu hosts using Ansible.
 
 This repository and its associated examples utilize [Orbstack](https://orbstack.dev/) to efficiently spin up and manage virtual machines (VMs). If you do not have OrbStack, you might need to adjust some files and settings accordingly, such as `ansible.cfg` and `hosts.yml`, to ensure compatibility with your VM management setup.
+
+## Table of Contents <!-- omit in toc -->
+
+<!-- TOC -->
+<!-- /TOC -->
 
 ## Included content/ Directory Structure
 
@@ -109,7 +114,7 @@ This Ansible playbook is designed to install Docker on hosts categorized under t
 
 This setup ensures that Docker is installed on all servers within the `docker_hosts` group. For more information on Ansible roles and playbooks, see the [Ansible documentation](https://docs.ansible.com/ansible/latest/user_guide/playbooks_roles.html).
 
-### install_kong.yml
+#### install_kong.yml
 
 This Ansible playbook installs Kong on Docker and Ubuntu hosts, organizing the tasks into separate plays for each host group. It performs the following actions:
 
