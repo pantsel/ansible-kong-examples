@@ -17,7 +17,9 @@ This repository and its associated examples utilize [Orbstack](https://orbstack.
     - [install\_docker.yml](#install_dockeryml)
     - [install\_kong.yml](#install_kongyml)
 - [Getting started](#getting-started)
-  - [1. Spin up the ubuntu Virtual Machines](#1-spin-up-the-ubuntu-virtual-machines)
+  - [1. Prepare ENV Variables](#1-prepare-env-variables)
+  - [2. Add Kong Cluster Certificates](#2-add-kong-cluster-certificates)
+  - [3. Spin up the ubuntu Virtual Machines (Orbstack)](#3-spin-up-the-ubuntu-virtual-machines-orbstack)
 
 <!-- /TOC -->
 
@@ -148,36 +150,39 @@ This playbook ensures that Kong is installed appropriately based on the host typ
 
 ## Getting started
 
-### 1. Spin up the ubuntu Virtual Machines
+### 1. Prepare ENV Variables
 
-To get started with this repository, you'll need to spin up two Ubuntu virtual machines using OrbStack. Follow these steps to set up your environment:
+Duplicate the `.env_example` file and rename it to `.env.` Then, fill in the required values for the environment variables.
 
-> You can skip this step if you are not using `OrbStack` and have your VMs set up using a different method.
+- **`ANS_KONG_CLUSTER_CONTROL_PLANE`**: The fully qualified domain name (FQDN) and port of the Kong Control Plane. Format: `<control_fqdn:443>`. This variable specifies where the Kong Control Plane is accessible.
 
-1. **Open OrbStack** and start the VM creation process.
+- **`ANS_KONG_CLUSTER_SERVER_NAME`**: The fully qualified domain name (FQDN) of the Kong Control Plane server. Format: `<control_fqdn>`. This variable is used to identify the server name for the Kong Control Plane.
 
-2. **Create Virtual Machines**:
-   - **VM 1**:
-     - **Name**: `ubuntu1`
-     - **Operating System**: Ubuntu 22.04 LTS (Jammy Jellyfish)
-     - **Architecture**: Intel
+- **`ANS_KONG_CLUSTER_TELEMETRY_ENDPOINT`**: The fully qualified domain name (FQDN) and port of the Kong Telemetry Endpoint. Format: `<control_telemetry_fqdn:443>`. This variable specifies where the Kong Telemetry service can be reached.
 
-   - **VM 2**:
-     - **Name**: `ubuntu2`
-     - **Operating System**: Ubuntu 22.04 LTS (Jammy Jellyfish)
-     - **Architecture**: Intel
+- **`ANS_KONG_CLUSTER_TELEMETRY_SERVER_NAME`**: The fully qualified domain name (FQDN) of the Kong Telemetry server. Format: `<control_telemetry_fqdn>`. This variable is used to identify the server name for the Kong Telemetry service.
 
-   - **VM 3**:
-     - **Name**: `docker1`
-     - **Operating System**: Ubuntu 22.04 LTS (Jammy Jellyfish)
-     - **Architecture**: Intel
+### 2. Add Kong Cluster Certificates
 
-   - **VM 4**:
-     - **Name**: `docker2`
-     - **Operating System**: Ubuntu 22.04 LTS (Jammy Jellyfish)
-     - **Architecture**: Intel
+1. **Create a Directory**: Create a folder named `.tls`.
 
-You now have four Ubuntu virtual machines ready for configuration. Follow the subsequent instructions in the repository to proceed with your setup.
+2. **Add Certificates**: Place the Kong Cluster certificate and private key into this directory with the following names:
+   - **Certificate**: `cluster.crt`
+   - **Private Key**: `cluster.key`
+
+   These files are used for mutual TLS (mTLS) connections to the Control Plane.
+
+### 3. Spin up the ubuntu Virtual Machines (Orbstack)
+
+For Orbstack users:
+
+1. **Open Orbstack** and create VMs:
+   - **VM 1**: `ubuntu1` (Ubuntu 22.04 LTS - Jammy Jellyfish amd46)
+   - **VM 2**: `ubuntu2` (Ubuntu 22.04 LTS - Jammy Jellyfish amd46)
+   - **VM 3**: `docker1` (Ubuntu 22.04 LTS - Jammy Jellyfish amd46)
+   - **VM 4**: `docker2` (Ubuntu 22.04 LTS - Jammy Jellyfish amd46)
+
+You now have four VMs ready for configuration.
 
 
 
