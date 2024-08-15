@@ -7,6 +7,18 @@ This repository and its associated examples utilize [Orbstack](https://orbstack.
 ## Table of Contents <!-- omit in toc -->
 
 <!-- TOC -->
+- [Included content/ Directory Structure](#included-content-directory-structure)
+- [Prerequisites](#prerequisites)
+- [Use Cases Covered](#use-cases-covered)
+- [Important files](#important-files)
+  - [ansible.cfg](#ansiblecfg)
+- [inventory/hosts.yml](#inventoryhostsyml)
+  - [Playbooks](#playbooks)
+    - [install\_docker.yml](#install_dockeryml)
+    - [install\_kong.yml](#install_kongyml)
+- [Getting started](#getting-started)
+  - [1. Spin up the ubuntu Virtual Machines](#1-spin-up-the-ubuntu-virtual-machines)
+
 <!-- /TOC -->
 
 ## Included content/ Directory Structure
