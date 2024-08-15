@@ -165,6 +165,13 @@ Duplicate the `.env_example` file and rename it to `.env.` Then, fill in the req
 | `ANS_KONG_CLUSTER_SERVER_NAME`          | The fully qualified domain name (FQDN) of the Kong Control Plane server. Format: `<control_fqdn>`. This variable is used to identify the server name for the Kong Control Plane. |
 | `ANS_KONG_CLUSTER_TELEMETRY_ENDPOINT`   | The fully qualified domain name (FQDN) and port of the Kong Telemetry Endpoint. Format: `<control_telemetry_fqdn:443>`. This variable specifies where the Kong Telemetry service can be reached. |
 | `ANS_KONG_CLUSTER_TELEMETRY_SERVER_NAME`| The fully qualified domain name (FQDN) of the Kong Telemetry server. Format: `<control_telemetry_fqdn>`. This variable is used to identify the server name for the Kong Telemetry service. |
+| `ANSIBLE_PRIVATE_KEY_FILE`| The path to the private key file used for SSH authentication in Ansible. This file should be in PEM format and must have the appropriate permissions set to ensure secure access to the remote hosts. Make sure to specify the correct path to the private key file in this variable. `Orbstack` users can use `~/.orbstack/ssh/id_ed25519` |
+
+***Export env variables***
+
+```bash
+$ export $(grep -v '^#' .env | xargs)         
+```
 
 ### 2. Add Kong Cluster Certificates
 
