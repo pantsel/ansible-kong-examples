@@ -223,7 +223,7 @@ $ ansible-playbook install_kong.yml --tags "kong_host"
 
 ### 7. Verify Kong is up and running on all hosts
 
-To ensure Kong is running correctly on all hosts, use `curl` to make requests on port 8000. Below are examples of how to issue these requests:
+To ensure Kong is running correctly on all hosts:
 
 ```bash
 $ curl http://ubuntu.orb.local:8000
