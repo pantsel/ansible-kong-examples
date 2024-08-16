@@ -41,6 +41,7 @@
     name: kong-dp
     image: kong/kong-gateway:3.7.0.0
     state: started
+    restart_policy: unless-stopped
     published_ports:
       - "8000:8000"
       - "8443:8443"
