@@ -23,7 +23,7 @@ This repository and its associated examples utilize [Orbstack](https://orbstack.
   - [4. Install docker on the docker hosts](#4-install-docker-on-the-docker-hosts)
   - [5. Install and Run Kong on the docker hosts](#5-install-and-run-kong-on-the-docker-hosts)
   - [6. Install and Run Kong directly on the ubuntu hosts](#6-install-and-run-kong-directly-on-the-ubuntu-hosts)
-  - [7. Verify Kong us up and running on all hosts](#7-verify-kong-us-up-and-running-on-all-hosts)
+  - [7. Verify Kong is up and running on all hosts](#7-verify-kong-is-up-and-running-on-all-hosts)
 
 <!-- /TOC -->
 
@@ -223,7 +223,7 @@ Install and configure Kong directly on Ubuntu hosts using the following playbook
 $ ansible-playbook install_kong.yml --tags "kong_host"    
 ```
 
-### 7. Verify Kong us up and running on all hosts
+### 7. Verify Kong is up and running on all hosts
 
 To ensure Kong is running correctly on all hosts, use `curl` to make requests on port 8000. Below are examples of how to issue these requests:
 
