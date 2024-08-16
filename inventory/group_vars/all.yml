@@ -3,10 +3,13 @@
 force_reload: false
 
 # The version of Kong EE to install.
-kong_version: "3.7.1.2"
+kong_version:  "{{ lookup('env', 'ANS_KONG_EE_VERSION') | default('3.7.1.2') }}"
+kong_major_minor_version: "{{ kong_version.split('.')[0] }}.{{ kong_version.split('.')[1] }}" # e.g. 3.7
+kong_gateway_version: "gateway-{{ kong_major_minor_version | replace('.', '') }}" # e.g. gateway-37
+
 
 # The URL to the Kong Gateway package.
-kong_gateway_package_url: "https://packages.konghq.com/public/gateway-37/deb/ubuntu/pool/_ANSIBLE_LSB_CODENAME_/main/k/ko/kong-enterprise-edition_{{ kong_version }}/kong-enterprise-edition_{{ kong_version }}__ARCH_.deb"
+kong_gateway_package_url: "https://packages.konghq.com/public/{{ kong_gateway_version }}/deb/ubuntu/pool/_ANSIBLE_LSB_CODENAME_/main/k/ko/kong-enterprise-edition_{{ kong_version }}/kong-enterprise-edition_{{ kong_version }}__ARCH_.deb"
 
 # The following variables are taken from the environment variables set in the shell.
 # Make sure to set these environment variables before running the playbook.

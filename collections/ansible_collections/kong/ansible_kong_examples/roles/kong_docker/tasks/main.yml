@@ -39,7 +39,7 @@
 - name: Start Kong DP
   community.docker.docker_container:
     name: kong-dp
-    image: kong/kong-gateway:3.7.0.0
+    image: kong/kong-gateway:{{ kong_version }}
     state: started
     restart_policy: unless-stopped
     published_ports:
