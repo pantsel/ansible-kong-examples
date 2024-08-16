@@ -85,8 +85,6 @@ The examples cover two distinct use cases:
 
 The ansible configuration file
 
-`private_key_file` is set to the default `Orbstack` private key used to SSH in the hosts. If nor using `Orbstack`, adjust the value accordingly.
-
 ### inventory/hosts.yml
 
 > Modify the file as needed if you are not using OrbStack to ensure compatibility with the provided example.
