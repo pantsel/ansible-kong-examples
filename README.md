@@ -186,7 +186,7 @@ $ export $(grep -v '^#' .env | xargs)
 For Orbstack users:
 
 **Open Orbstack** and create VMs:
-   - **VM 1**: `ubuntu1` (Ubuntu 22.04 LTS - Jammy Jellyfish amd46)
+   - **VM 1**: `ubuntu` (Ubuntu 22.04 LTS - Jammy Jellyfish amd46)
    - **VM 2**: `ubuntu2` (Ubuntu 22.04 LTS - Jammy Jellyfish amd46)
    - **VM 3**: `docker1` (Ubuntu 22.04 LTS - Jammy Jellyfish amd46)
    - **VM 4**: `docker2` (Ubuntu 22.04 LTS - Jammy Jellyfish amd46)
