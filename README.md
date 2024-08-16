@@ -13,6 +13,7 @@ This repository and its associated examples utilize [Orbstack](https://orbstack.
 - [Important files](#important-files)
   - [ansible.cfg](#ansiblecfg)
   - [inventory/hosts.yml](#inventoryhostsyml)
+  - [inventory/group\_vars/all.yml](#inventorygroup_varsallyml)
   - [Playbooks](#playbooks)
     - [install\_docker.yml](#install_dockeryml)
     - [install\_kong.yml](#install_kongyml)
@@ -117,6 +118,10 @@ The `children` section groups these servers into:
   - `server4`
 
 This structure allows for organized management and task targeting based on server categories. For more details on configuring Ansible inventory files, refer to the [Ansible documentation](https://docs.ansible.com/ansible/latest/user_guide/intro_inventory.html).
+
+### inventory/group_vars/all.yml
+
+The variables defined in this file will be applied globally across all hosts in the inventory.
 
 ### Playbooks
 
